@@ -21,7 +21,7 @@ class NetworkManager {
         
     //    ActivityIndicator.shared.showIndicator()
         
-        AF.request(url, method: requestMethod, parameters: request.convertToDict(), encoding: URLEncoding(destination: .queryString), headers: nil).authenticate(with: <#T##URLCredential#>)
+        AF.request(url, method: requestMethod, parameters: request.convertToDict(), encoding: URLEncoding(destination: .queryString), headers: nil)
             .validate()
             .responseData { (response) in
                 switch response.result {
@@ -35,21 +35,6 @@ class NetworkManager {
                 //        ActivityIndicator.shared.stopIndicator()
                         complationHandler(nil, error)
                     }
-                case .failure(let error):
-              //      ActivityIndicator.shared.stopIndicator()
-                    complationHandler(nil, error)
-                }
-        }
-    }
-    
-    func fetchImage(imageUrl: String, complationHandler: @escaping (Image?, Error?) -> Void ) {
-       // ActivityIndicator.shared.showIndicator()
-        AF.request(imageUrl)
-            .responseImage { response in
-                switch response.result {
-                case .success(let image):
-                    complationHandler(image, nil)
-                 //   ActivityIndicator.shared.stopIndicator()
                 case .failure(let error):
               //      ActivityIndicator.shared.stopIndicator()
                     complationHandler(nil, error)

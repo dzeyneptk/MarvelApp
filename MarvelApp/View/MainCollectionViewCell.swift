@@ -10,15 +10,17 @@ import UIKit
 
 class MainCollectionViewCell: UICollectionViewCell {
     // MARK: - IBOutlets
-    @IBOutlet var characterImageView: UIImageView!
-
+    @IBOutlet private weak var characterImageView: UIImageView!
+    @IBOutlet private weak var characterLabel: UILabel!
+    
     // MARK: - Override Func
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     // MARK: - Functions
-    func configure(with image: UIImage) {
-        characterImageView.image = image
+    func configure(with imageUrl: URL, name: String) {
+        characterImageView.af.setImage(withURL: imageUrl)
+        characterLabel.text = name
     }
     
     static func nib() -> UINib {

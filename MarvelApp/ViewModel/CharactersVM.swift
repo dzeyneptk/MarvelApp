@@ -16,7 +16,6 @@ protocol CharactersDelegate: class {
 
 class CharactersVM {
     private var responseModel: ResponseModel?
-    private var result: [String] = []
     
     private var imageResult: UIImage? = nil
     weak var delegate: CharactersDelegate?
@@ -24,53 +23,42 @@ class CharactersVM {
     // MARK: - MarvelAPIService
     func getCharacterName() {
         
-        let requestParameter = RequestModel(limit: 0, offSet: 30)
-       // ActivityIndicator.shared.showIndicator()
+        let requestParameter = RequestModel(limit: 20, offSet: 0)
+        // ActivityIndicator.shared.showIndicator()
         NetworkManager.shared.fetchService(request: requestParameter) { (response, error) in
             if let error = error {
-              //  ActivityIndicator.shared.stopIndicator()
+                //  ActivityIndicator.shared.stopIndicator()
                 self.delegate?.failWith(error: error.localizedDescription)
                 return
             }
             if let response = response {
-              //  ActivityIndicator.shared.stopIndicator()
+                //  ActivityIndicator.shared.stopIndicator()
                 self.responseModel = response
-                self.prepareData()
                 self.delegate?.succes()
             }
         }
     }
     
     // MARK: - Image Fetch Service
-    func getImage(position: Int) {
-        // nil control
-
-        let url = responseModel?.data?.results?[position].resourceURI ?? ""
-        NetworkManager.shared.fetchImage(imageUrl: url)  { (image, error) in
-        if let error = error {
-            self.delegate?.failWith(error: error.localizedDescription)
-            return
-        }
-            if let image = image {
-                self.imageResult = image
-                self.delegate?.succes()
-            }
-        }
+    func getImageUrl(index: Int) -> URL? {
+        let dataVM = ResponseVM(model: responseModel).data
+        guard let path = dataVM?.results(index: index)?.thumbnail?.path ,
+            let ext = dataVM?.results(index: index)?.thumbnail?.extenSion
+            else {return nil}
+        return URL(string: path + "." + ext)
+    }
+    func getCharacterName(index: Int) -> String {
+        let dataVM =  ResponseVM(model: responseModel).data
+        let results = dataVM?.results(index: index)
+        return results?.name ?? ""
     }
     
-    // MARK: - Private Func
-    private func prepareData() {
-        result.removeAll()
-        result.append("Character Name: " + (responseModel?.data?.results?[0].name ?? "") )
-     
+    // MARK: - Computed Proporties
+    var count: Int {
+        let dataVM = ResponseVM(model: responseModel).data
+        return dataVM?.count ?? 0
     }
-    
-    // MARK: - COmputed Proporties
     var image: UIImage? {
         return imageResult
-    }
-    
-    var posterURI: String? {
-        return ResponseVM(model: responseModel).data?.results?.resourceURI
     }
 }

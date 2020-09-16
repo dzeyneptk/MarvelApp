@@ -1,5 +1,5 @@
 //
-//  Items.swift
+//  Thumbnail.swift
 //  MarvelApp
 //
 //  Created by zeynep tokcan on 16.09.2020.
@@ -7,10 +7,13 @@
 //
 
 import Foundation
-struct Items : Codable {
-    let name : String?
+struct Thumbnail : Codable {
+    let path : String?
+    let extenSion : String?
 
     enum CodingKeys: String, CodingKey {
-        case name = "name"
+
+        case path = "path"
+        case extenSion = "extension"
     }
 }

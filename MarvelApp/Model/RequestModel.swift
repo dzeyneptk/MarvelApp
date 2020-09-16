@@ -9,17 +9,18 @@
 import Foundation
 struct RequestModel: Codable {
     var limit: Int
-    var offSet: Int
+    var offset: Int
     var ts: String
-    var apikeypublic: String
+    var apikey: String
     var hash: String
-    var string = String(Date().timeIntervalSince1970*1000) + AppConstant.apiKeyPrivate + AppConstant.apiKeyPublic
+     
+
     
     init(limit: Int, offSet: Int) {
         self.limit = limit
-        self.offSet = offSet
-        self.apikeypublic = AppConstant.apiKeyPublic
-        self.ts = String(Date().timeIntervalSince1970*1000)
-        self.hash = string.sha512
+        self.offset = offSet
+        self.apikey = AppConstant.apiKeyPublic
+        self.ts = String(Int(Date().timeIntervalSince1970*1000))
+        self.hash = (String(Int(Date().timeIntervalSince1970*1000)) + AppConstant.apiKeyPrivate + AppConstant.apiKeyPublic).md5
     }
 }

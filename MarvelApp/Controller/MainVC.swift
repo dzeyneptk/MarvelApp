@@ -47,13 +47,14 @@ extension MainVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppConstant.identifier, for: indexPath) as! MainCollectionViewCell
 
-        charactersVM.getImage(position: indexPath.item)
-        cell.configure(with: charactersVM.image!)
+        if let url = charactersVM.getImageUrl(index: indexPath.row){
+            cell.configure(with: url, name: charactersVM.getCharacterName(index: indexPath.row))
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return charactersVM.count
     }
     
 }
@@ -67,7 +68,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
 // MARK: - PosterImageDelegate
 extension MainVC: CharactersDelegate {
     func succes() {
-      //  updateUI()
+        collectionView.reloadData()
     }
     func failWith(error: String?) {
         print(error ?? "")
