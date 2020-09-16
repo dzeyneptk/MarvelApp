@@ -10,7 +10,10 @@ import Foundation
 
 struct Comics : Codable {
     let items : [Items]?
+    let available : Int?
+    
     enum CodingKeys: String, CodingKey {
         case items = "items"
+        case available = "available"
     }
 }

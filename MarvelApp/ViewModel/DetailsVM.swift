@@ -28,8 +28,11 @@ class DetailsVM {
     func getCharacterComicsList() -> [Items] {
         return (character?.comics?.items)!
     }
+    func getComics(atIndex: Int) -> String {
+        return (character?.comics?.items?[atIndex].name)!
+    }
     
-    var count: Int {
-        
+    var count: Int? {
+        return character?.comics?.available
     }
 }

@@ -81,6 +81,9 @@ struct ComicsVM {
     init(model: Comics?) {
         self.responseModel = model
     }
+    var available: Int {
+        return responseModel?.available ?? 0
+    }
     func items(index: Int) -> ItemsVM? {
         guard let response = responseModel else { return nil }
         return ItemsVM(model: response.items?[index])
