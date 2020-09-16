@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainVC" customModule="MarvelApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Sjk-fl-Blb">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="A60-wg-8pG">
                                     <size key="itemSize" width="128" height="128"/>
@@ -48,6 +48,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Sjk-fl-Blb" id="SZx-ao-NI2"/>
+                        <segue destination="KQv-p0-PDL" kind="show" identifier="fromCellToDetail" id="pXD-A2-oBO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -59,26 +60,26 @@
             <objects>
                 <viewController id="KQv-p0-PDL" customClass="DetailVC" customModule="MarvelApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dkz-we-1aO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TO5-fq-Ppx">
-                                <rect key="frame" x="0.0" y="44" width="414" height="269"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="214.66666666666666"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UrH-zl-KTV" userLabel="CharacterName">
-                                <rect key="frame" x="0.0" y="293" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="194.66666666666666" width="414" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desc" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fd4-fs-KMk">
-                                <rect key="frame" x="0.0" y="333" width="414" height="23"/>
+                                <rect key="frame" x="0.0" y="234.66666666666666" width="414" height="22.999999999999972"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6dg-Sy-fmH">
-                                <rect key="frame" x="0.0" y="356" width="414" height="506"/>
+                                <rect key="frame" x="0.0" y="257.66666666666674" width="414" height="458.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -91,7 +92,7 @@
                             <constraint firstItem="l8K-Zv-HW5" firstAttribute="bottom" secondItem="6dg-Sy-fmH" secondAttribute="bottom" id="Jdm-NZ-DiF"/>
                             <constraint firstItem="6dg-Sy-fmH" firstAttribute="leading" secondItem="l8K-Zv-HW5" secondAttribute="leading" id="JfL-WC-U7k"/>
                             <constraint firstItem="TO5-fq-Ppx" firstAttribute="height" secondItem="dkz-we-1aO" secondAttribute="height" multiplier="0.3" id="LgI-MQ-c3R"/>
-                            <constraint firstItem="TO5-fq-Ppx" firstAttribute="width" secondItem="dkz-we-1aO" secondAttribute="width" id="P1A-So-KdV"/>
+                            <constraint firstItem="TO5-fq-Ppx" firstAttribute="width" relation="lessThanOrEqual" secondItem="dkz-we-1aO" secondAttribute="width" id="P1A-So-KdV"/>
                             <constraint firstItem="fd4-fs-KMk" firstAttribute="top" secondItem="UrH-zl-KTV" secondAttribute="bottom" constant="10" id="Utb-mn-0Aw"/>
                             <constraint firstItem="l8K-Zv-HW5" firstAttribute="trailing" secondItem="TO5-fq-Ppx" secondAttribute="trailing" id="Vqf-ZB-5JW"/>
                             <constraint firstItem="l8K-Zv-HW5" firstAttribute="trailing" secondItem="UrH-zl-KTV" secondAttribute="trailing" id="XHg-eD-ffM"/>
@@ -102,6 +103,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="l8K-Zv-HW5"/>
                     </view>
+                    <navigationItem key="navigationItem" id="IhX-Xh-b3E"/>
+                    <connections>
+                        <outlet property="characterName" destination="UrH-zl-KTV" id="NQg-0V-HMg"/>
+                        <outlet property="descLabel" destination="fd4-fs-KMk" id="WXe-1N-PJA"/>
+                        <outlet property="imageViewDetail" destination="TO5-fq-Ppx" id="4nO-FV-VAI"/>
+                        <outlet property="tableViewDetail" destination="6dg-Sy-fmH" id="THy-MX-JnK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eEJ-gx-TwS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

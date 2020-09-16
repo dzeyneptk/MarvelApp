@@ -16,7 +16,6 @@ protocol CharactersDelegate: class {
 
 class CharactersVM {
     private var responseModel: ResponseModel?
-    
     private var imageResult: UIImage? = nil
     weak var delegate: CharactersDelegate?
     
@@ -47,6 +46,9 @@ class CharactersVM {
         let dataVM =  ResponseVM(model: responseModel).data
         let results = dataVM?.results(index: index)
         return results?.name ?? ""
+    }
+    func getCharacter(index: Int) -> CharacterResults? {
+        return responseModel?.data?.characterResults?[index]
     }
     
     // MARK: - Computed Proporties

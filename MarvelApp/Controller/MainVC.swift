@@ -16,6 +16,7 @@ class MainVC: UIViewController {
     var charactersVM = CharactersVM()
     private var limit = 30
     private var offset = 0
+    var destinationIndex = 0
     
     // MARK: - Override Functions
     override func viewDidLoad() {
@@ -23,6 +24,12 @@ class MainVC: UIViewController {
         configureCollectionView()
         charactersVM.delegate = self
         charactersVM.getCharacterName(limit: limit, offset: offset)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fromCellToDetail" {
+            let destination = segue.destination as! DetailVC
+            destination.character = charactersVM.getCharacter(index: destinationIndex)
+        }
     }
     
     // MARK: - Private Functions
@@ -40,14 +47,14 @@ class MainVC: UIViewController {
 extension MainVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        print("you tapped!")
+        self.destinationIndex = indexPath.row
+        self.performSegue(withIdentifier: "fromCellToDetail", sender: nil)
     }
 }
 // MARK: - UICollectionViewDataSource
 extension MainVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppConstant.identifier, for: indexPath) as! MainCollectionViewCell
-
         if let url = charactersVM.getImageUrl(index: indexPath.row){
             cell.configure(with: url, name: charactersVM.getCharacterName(index: indexPath.row))
         }
