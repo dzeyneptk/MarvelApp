@@ -13,10 +13,15 @@ class MainVC: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // MARK: - Parameters
+    var charactersVM = CharactersVM()
+    
     // MARK: - Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        charactersVM.delegate = self
+        charactersVM.getCharacterName()
     }
     
     // MARK: - Private Functions
@@ -41,7 +46,9 @@ extension MainVC: UICollectionViewDelegate {
 extension MainVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppConstant.identifier, for: indexPath) as! MainCollectionViewCell
-        // cell.configure(
+
+        charactersVM.getImage(position: indexPath.item)
+        cell.configure(with: charactersVM.image!)
         return cell
     }
     
@@ -56,3 +63,14 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 120, height: 120)
     }
 }
+
+// MARK: - PosterImageDelegate
+extension MainVC: CharactersDelegate {
+    func succes() {
+      //  updateUI()
+    }
+    func failWith(error: String?) {
+        print(error ?? "")
+    }
+}
+
