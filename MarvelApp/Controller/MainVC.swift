@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class MainVC: UIViewController {
 
     // MARK: - IBOutlets
@@ -15,13 +14,15 @@ class MainVC: UIViewController {
     
     // MARK: - Parameters
     var charactersVM = CharactersVM()
+    private var limit = 30
+    private var offset = 0
     
     // MARK: - Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         charactersVM.delegate = self
-        charactersVM.getCharacterName()
+        charactersVM.getCharacterName(limit: limit, offset: offset)
     }
     
     // MARK: - Private Functions

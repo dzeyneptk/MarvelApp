@@ -21,18 +21,14 @@ class CharactersVM {
     weak var delegate: CharactersDelegate?
     
     // MARK: - MarvelAPIService
-    func getCharacterName() {
-        
-        let requestParameter = RequestModel(limit: 20, offSet: 0)
-        // ActivityIndicator.shared.showIndicator()
+    func getCharacterName(limit: Int, offset: Int) {
+        let requestParameter = RequestModel(limit: limit, offSet: offset)
         NetworkManager.shared.fetchService(request: requestParameter) { (response, error) in
             if let error = error {
-                //  ActivityIndicator.shared.stopIndicator()
                 self.delegate?.failWith(error: error.localizedDescription)
                 return
             }
             if let response = response {
-                //  ActivityIndicator.shared.stopIndicator()
                 self.responseModel = response
                 self.delegate?.succes()
             }

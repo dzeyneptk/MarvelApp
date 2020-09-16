@@ -9,7 +9,6 @@
 import Foundation
 struct ResponseVM {
     private var responseModel : ResponseModel?
-    
     init(model: ResponseModel?) {
         self.responseModel = model
     }
