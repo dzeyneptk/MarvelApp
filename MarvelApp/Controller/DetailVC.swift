@@ -26,6 +26,7 @@ class DetailVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+       // sortToDate()
     }
     // MARK: - Private Functions
     private func configureTableView(){
@@ -41,8 +42,7 @@ class DetailVC: UIViewController {
         if (descLabel.text == "") {descLabel.text = "Character description not found!"}
         imageViewDetail.af.setImage(withURL: URL(string: (detailsVM?.getCharacterImage())!)!)
     }
-    private func sortToDate() {
-        for comic in self.comicsList {
+    private func sortToDate(comic: String) {
             let fullComic : [String] = comic.components(separatedBy: "(")
             let firstPart : String = fullComic[1]
             let remain : [String] = firstPart.components(separatedBy: ")")
@@ -57,9 +57,10 @@ class DetailVC: UIViewController {
                 if (Int(remainPart)! < 2005) {
                     comicsList.removeLast()
                 }
+                yearList.append(remainPart)
             }
             
-        }
+        
        print(comicsList)
     }
 }
@@ -73,8 +74,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         comicsList.append(detailsVM?.getComics(atIndex: indexPath.row) ?? "")
-       // sortToDate()
-        cell.textLabel?.text = comicsList[indexPath.row]
+        sortToDate(comic: detailsVM?.getComics(atIndex: indexPath.row) ?? "")
+        cell.textLabel?.text = detailsVM?.getComics(atIndex: indexPath.row)
         cell.textLabel?.lineBreakMode = .byWordWrapping
         cell.textLabel?.numberOfLines = 0
         return cell
