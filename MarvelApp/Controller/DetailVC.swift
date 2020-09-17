@@ -85,6 +85,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = comicsList[indexPath.row]
         cell.textLabel?.lineBreakMode = .byWordWrapping
         cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.textColor = UIColor.white
+        cell.backgroundColor = UIColor.clear
         return cell
     }
 }

@@ -33,8 +33,6 @@ class DetailsVM {
         return (character?.comics?.items?[atIndex].name)!
     }
     
-   // private func publisingDate() ->
-    
     var count: Int? {
         return character?.comics?.available
     }

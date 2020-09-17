@@ -51,14 +51,13 @@ extension MainVC: UICollectionViewDelegate {
         self.performSegue(withIdentifier: "fromCellToDetail", sender: nil)
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-            if indexPath.row == charactersVM.count - 1 {  //numberofitem count
+            if indexPath.row == charactersVM.count - 1 {
                 updateNextSet()
             }
     }
     func updateNextSet(){
            print("On Completetion")
         self.offset += 30
-        self.limit += 30
         charactersVM.getCharacterName(limit: limit, offset: offset)
     }
 }
@@ -79,8 +78,9 @@ extension MainVC: UICollectionViewDataSource {
 }
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MainVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120, height: 120)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        let size = self.collectionView.frame.width/2 - 10
+        return CGSize(width: size, height: size)
     }
 }
 

@@ -20,6 +20,7 @@ class MainCollectionViewCell: UICollectionViewCell {
     // MARK: - Functions
     func configure(with imageUrl: URL, name: String) {
         characterImageView.af.setImage(withURL: imageUrl)
+        characterImageView.layer.cornerRadius = 6
         characterLabel.text = name
     }
     
