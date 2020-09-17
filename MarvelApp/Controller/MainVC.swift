@@ -50,6 +50,17 @@ extension MainVC: UICollectionViewDelegate {
         self.destinationIndex = indexPath.row
         self.performSegue(withIdentifier: "fromCellToDetail", sender: nil)
     }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+            if indexPath.row == charactersVM.count - 1 {  //numberofitem count
+                updateNextSet()
+            }
+    }
+    func updateNextSet(){
+           print("On Completetion")
+        self.offset += 30
+        self.limit += 30
+        charactersVM.getCharacterName(limit: limit, offset: offset)
+    }
 }
 // MARK: - UICollectionViewDataSource
 extension MainVC: UICollectionViewDataSource {

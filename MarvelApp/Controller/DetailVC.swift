@@ -17,8 +17,10 @@ class DetailVC: UIViewController {
     @IBOutlet weak var tableViewDetail: UITableView!
     
     // MARK: - Parameters
-    var  character: CharacterResults? = nil
-    var  detailsVM: DetailsVM? = nil
+    var character: CharacterResults? = nil
+    var detailsVM: DetailsVM? = nil
+    var comicsList: [String] = []
+    var yearList: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,27 @@ class DetailVC: UIViewController {
         if (descLabel.text == "") {descLabel.text = "Character description not found!"}
         imageViewDetail.af.setImage(withURL: URL(string: (detailsVM?.getCharacterImage())!)!)
     }
+    private func sortToDate() {
+        for comic in self.comicsList {
+            let fullComic : [String] = comic.components(separatedBy: "(")
+            let firstPart : String = fullComic[1]
+            let remain : [String] = firstPart.components(separatedBy: ")")
+            let remainPart : String = remain[0]
+            
+
+            let decimalCharacters = CharacterSet.decimalDigits
+
+            let decimalRange = remainPart.rangeOfCharacter(from: decimalCharacters)
+
+            if decimalRange != nil {
+                if (Int(remainPart)! < 2005) {
+                    comicsList.removeLast()
+                }
+            }
+            
+        }
+       print(comicsList)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -49,7 +72,9 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = detailsVM?.getComics(atIndex: indexPath.row)
+        comicsList.append(detailsVM?.getComics(atIndex: indexPath.row) ?? "")
+       // sortToDate()
+        cell.textLabel?.text = comicsList[indexPath.row]
         cell.textLabel?.lineBreakMode = .byWordWrapping
         cell.textLabel?.numberOfLines = 0
         return cell

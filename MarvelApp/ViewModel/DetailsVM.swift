@@ -10,6 +10,7 @@ import Foundation
 
 class DetailsVM {
     var character: CharacterResults?
+    
     init(character: CharacterResults) {
         self.character = character
     }
@@ -31,6 +32,8 @@ class DetailsVM {
     func getComics(atIndex: Int) -> String {
         return (character?.comics?.items?[atIndex].name)!
     }
+    
+   // private func publisingDate() ->
     
     var count: Int? {
         return character?.comics?.available
