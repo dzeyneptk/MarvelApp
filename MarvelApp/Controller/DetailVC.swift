@@ -41,7 +41,7 @@ class DetailVC: UIViewController {
         descLabel.text = detailsVM?.getCharacterDesc()
         if (descLabel.text == "") {descLabel.text = "Character description not found!"}
         imageViewDetail.af.setImage(withURL: URL(string: (detailsVM?.getCharacterImage())!)!)
-        imageViewDetail.layer.cornerRadius = 6
+        imageViewDetail.layer.cornerRadius = 10
         sortComicsByDate()
     }
     private func sortComicsByDate(){
