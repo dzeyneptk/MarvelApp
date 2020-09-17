@@ -21,12 +21,12 @@ class DetailVC: UIViewController {
     var detailsVM: DetailsVM? = nil
     var comicsList: [String] = []
     var yearList: [String] = []
+    var isSortedDate = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureTableView()
-       // sortToDate()
     }
     // MARK: - Private Functions
     private func configureTableView(){
@@ -41,41 +41,48 @@ class DetailVC: UIViewController {
         descLabel.text = detailsVM?.getCharacterDesc()
         if (descLabel.text == "") {descLabel.text = "Character description not found!"}
         imageViewDetail.af.setImage(withURL: URL(string: (detailsVM?.getCharacterImage())!)!)
+        sortComicsByDate()
     }
-    private func sortToDate(comic: String) {
-            let fullComic : [String] = comic.components(separatedBy: "(")
-            let firstPart : String = fullComic[1]
-            let remain : [String] = firstPart.components(separatedBy: ")")
-            let remainPart : String = remain[0]
-            
-
-            let decimalCharacters = CharacterSet.decimalDigits
-
-            let decimalRange = remainPart.rangeOfCharacter(from: decimalCharacters)
-
-            if decimalRange != nil {
-                if (Int(remainPart)! < 2005) {
-                    comicsList.removeLast()
-                }
-                yearList.append(remainPart)
-            }
-            
+    private func sortComicsByDate(){
+        var filteredItems = [String]()
         
-       print(comicsList)
+        // Filter by date 2005
+        detailsVM?.character?.comics?.items?.forEach{ item in
+            if(checkDateIsAfter2005(comic: item.name ?? "")){
+                filteredItems.append(item.name!)
+            }
+        }
+        // Sort by date
+        filteredItems.sort(by: { getYearFromString(string: $0) > getYearFromString(string: $1)})
+
+        // Take first 10 items
+        comicsList = Array(filteredItems.prefix(10))
+        updateComics()
+    }
+    private func checkDateIsAfter2005(comic: String) -> Bool {
+        return getYearFromString(string: comic) > 2005
+    }
+    private func getYearFromString(string: String) -> Int {
+        let fullComic : [String] = string.components(separatedBy: "(")
+        let firstPart : String = fullComic[1]
+        let remain : [String] = firstPart.components(separatedBy: ")")
+        let remainPart : String = remain[0]
+        return Int(remainPart) ?? 0
+    }
+    private func updateComics() {
+        tableViewDetail.reloadData()
     }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension DetailVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return detailsVM?.count ?? 0
+        return comicsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        comicsList.append(detailsVM?.getComics(atIndex: indexPath.row) ?? "")
-        sortToDate(comic: detailsVM?.getComics(atIndex: indexPath.row) ?? "")
-        cell.textLabel?.text = detailsVM?.getComics(atIndex: indexPath.row)
+        cell.textLabel?.text = comicsList[indexPath.row]
         cell.textLabel?.lineBreakMode = .byWordWrapping
         cell.textLabel?.numberOfLines = 0
         return cell
